@@ -1,2 +1,7 @@
 .env
 .idea/
+.openclaude-profile.json
+
+# Repositórios separados — clonar ao lado, não versionar aqui
+backend-store/
+frontend-store/
