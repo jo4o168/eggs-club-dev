@@ -1,0 +1,38 @@
+# Desenvolvimento com hot-reload (código montado no container).
+# Uso: docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+name: eggs-club
+
+services:
+  backend:
+    build:
+      context: ./backend-store
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend-store:/var/www/html
+      - backend_vendor:/var/www/html/vendor
+    environment:
+      APP_DEBUG: "true"
+
+  queue:
+    build:
+      context: ./backend-store
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend-store:/var/www/html
+      - backend_vendor:/var/www/html/vendor
+
+  frontend:
+    build:
+      context: ./frontend-store
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend-store:/app
+      - frontend_node_modules:/app/node_modules
+    environment:
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"
+
+volumes:
+  backend_vendor:
+  frontend_node_modules:
